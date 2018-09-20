@@ -9,17 +9,15 @@
 <body>
   Oi
 
-  <script src="src/webbot.js"></script>
+  <script src="../src/automatto.js"></script>
   <script>
-    var chattob = new Chattob('chatbot-wrapper', {
-      chatbotBotResponseBubbleParentId: 'chatbot-view',
+    new Automatto('chatbot-wrapper', {
       dialogflowVersion: '20170712',
       dialogflowLanguage: 'pt-br',
       dialogflowClientToken: '289988f6d21944b1ae1eb43aa74d38eb',
       dialogflowTimezone: 'America/Sao_Paulo',
       logErrors: true
     });
-    chattob;
   </script>
 </body>
 </html>

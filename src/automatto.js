@@ -3,7 +3,7 @@
   |  _  |  |  |_   _|     |     |  _  |_   _|_   _|     |  __|  |   __|
   |     |  |  | | | |  |  | | | |     | | |   | | |  |  |_|  |  |__   |
   |__|__|_____| |_| |_____|_|_|_|__|__| |_|   |_| |_____|_|_____|_____|
-  
+
     Version : 0.1.0
      Author : Lucas Henrique
  Author URL : https://lhenrique.com.br/
@@ -13,7 +13,7 @@
      Issues : https://github.com/lurique/automatto/issues
 */
 
-function Chattob(elem, props) {
+function Automatto(elem, props) {
 
   var _ = this;
 
