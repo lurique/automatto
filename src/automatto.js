@@ -3,13 +3,14 @@
   |  _  |  |  |_   _|     |     |  _  |_   _|_   _|     |  __|  |   __|
   |     |  |  | | | |  |  | | | |     | | |   | | |  |  |_|  |  |__   |
   |__|__|_____| |_| |_____|_|_|_|__|__| |_|   |_| |_____|_|_____|_____|
-
-  Version : 0.1.0
-   Author : Lucas Henrique
-  Website : https://lhenrique.com.br/webbot
-     Docs : https://lhenrique.com.br/webbot/docs
-     Repo : https://github.com/lurique/webbot
-   Issues : https://github.com/lurique/webbot/issues
+  
+    Version : 0.1.0
+     Author : Lucas Henrique
+ Author URL : https://lhenrique.com.br/
+    Website : https://automatto.github.io/
+       Docs : https://automatto.github.io/docs
+       Repo : https://github.com/lurique/automatto
+     Issues : https://github.com/lurique/automatto/issues
 */
 
 function Chattob(elem, props) {
