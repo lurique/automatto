@@ -7,11 +7,19 @@
   <title>Document</title>
 </head>
 <body>
-  Oi
+  <form id="chatbot" action="#" method="POST">
+    <div class="chatbot-view">
+
+    </div>
+    <input type="text">
+    <button type="submit">Send</button>
+  </form>
+
+  <div id="toma"></div>
 
   <script src="../src/automatto.js"></script>
   <script>
-    new Automatto('chatbot-wrapper', {
+    var automatto = new Automatto('chatbot', {
       dialogflowVersion: '20170712',
       dialogflowLanguage: 'pt-br',
       dialogflowClientToken: '289988f6d21944b1ae1eb43aa74d38eb',

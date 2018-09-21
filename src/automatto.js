@@ -55,57 +55,69 @@ function Automatto(elem, props) {
     if ( _.defaults.dialogflowClientToken === "" ) return {status: false, message: "Diagloflow client token is necessary."};
     if ( _.defaults.dialogflowTimezone === "" ) return {status: false, message: "Dialogflow timezone is necessary."};
 
-    return { status: true, message: "Configuration is ok." };
+    // If everything is ok
+    _.prepareRequest();
+
+    return {status: true, message: "Configuration is ok."};
   }
 
-  _.doRequest = function(e, query) {
-    e.preventDefault();
+  _.prepareRequest = function() {
+    var form = document.getElementById(_.defaults.chatbotFormId);
 
-    if ( query === "" ) return;
+    form.addEventListener('submit', function(e) {
+      var query = this.querySelector('input').value;
 
-    var xhr = new XMLHttpRequest();
-    var string = query.replace(/[^a-zA-Zà-úÀ-Ú ]/g, "");
-    var endpoint = `https://api.dialogflow.com/v1/query?v=${_.defaults.dialogflowVersion}&query=${string}&lang=pt-br&sessionId=${_.defaults.dialogflowClientToken}&timezone=${_.defaults.dialogflowTimezone}`;
+      if ( query === "" ) return;
 
-    xhr.addEventListener('readystatechange', function() {
-      if ( this.readyState === 4 ) {
-        var data = JSON.parse(this.responseText);
-        _.parseDialogflowResponse(data);
-      }
+      var xhr = new XMLHttpRequest();
+      var string = query.replace(/[^a-zA-Zà-úÀ-Ú ]/g, "").replace(/\n/g, "<br>");
+      var endpoint = `https://api.dialogflow.com/v1/query?v=${_.defaults.dialogflowVersion}&query=${string}&lang=pt-br&sessionId=${_.defaults.dialogflowClientToken}&timezone=${_.defaults.dialogflowTimezone}`;
+  
+      xhr.addEventListener('readystatechange', function() {
+        if ( this.readyState === 4 ) {
+          var data = JSON.parse(this.responseText);
+          _.parseDialogflowResponse(data);
+        }
+      });
+  
+      xhr.open("GET", endpoint);
+      xhr.setRequestHeader("Authorization", `Bearer ${_.defaults.dialogflowClientToken}`);
+      xhr.send();
+
+      e.preventDefault();
     });
-
-    xhr.open("GET", endpoint);
-    xhr.setRequestHeader("Authorization", `Bearer ${_.defaults.dialogflowClientToken}`);
-    xhr.send();
   }
 
   _.parseDialogflowResponse = function(data) {
     var messages = data.result.fulfillment.messages;
-
+    
     var responseTypes = {
-      "simple_response": _.parsers.simpleResponse(),
-      "basic_card": _.parsers.basicCard(),
-      "list": _.parsers.list(),
-      "suggestion_chips": _.parsers.suggestionChips(),
-      "carousel_card": _.parsers.carouselCard(),
-      "browse_carousel_card": _.parsers.browseCarouselCard(),
-      "link_out_suggestion": _.parsers.linkOutSuggestion(),
-      "media_content": _.parsers.mediaContent(),
-      "custom_payload": _.parsers.customPayload(),
-      "table_card": _.parsers.tableCard()
+      "simple_response": _.parsers.simpleResponse,
+      "basic_card": _.parsers.basicCard,
+      "list": _.parsers.list,
+      "suggestion_chips": _.parsers.suggestionChips,
+      "carousel_card": _.parsers.carouselCard,
+      "browse_carousel_card": _.parsers.browseCarouselCard,
+      "link_out_suggestion": _.parsers.linkOutSuggestion,
+      "media_content": _.parsers.mediaContent,
+      "custom_payload": _.parsers.customPayload,
+      "table_card": _.parsers.tableCard
     }
-
+  
     messages.forEach(function(message) {
-      responseTypes[message.type](message);
+      if ( message.type === 0 ) return;
+      responseTypes[message.type];
     });
   }
 
   _.parsers = {
     simpleResponse: function(message) {
+      console.log('simple message');
       console.log(message);
     },
 
     basicCard: function(message) {
+      console.log('basic card');
       console.log(message);
     },
 
@@ -155,5 +167,5 @@ function Automatto(elem, props) {
     console.log(err);
   }
 
-  if ( props ) return _.setProperties();
+  if ( props ) _.setProperties();
 }
